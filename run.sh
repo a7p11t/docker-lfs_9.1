@@ -74,3 +74,15 @@ tar -xf gcc-*.tar.xz -C /tmp/ && \
   && popd \
   && rm -rf /tmp/gcc
 #}}}
+
+#{{{ Build Linux API Headers
+echo "Building Linux API Headers..."
+tar -xf linux-*.tar.xz -C /tmp/ \
+  && mv /tmp/linux-* /tmp/linux \
+  && pushd /tmp/linux \
+  && make mrproper \
+  && make headers \
+  && cp -rv usr/include/* /tools/include \
+  && popd \
+  && rm -rf /tmp/linux
+#}}}

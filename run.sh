@@ -111,3 +111,23 @@ echo 'int main(){}' > dummy.c \
   && readelf -l a.out | grep ': /tools' \
   && rm -v dummy.c a.out
 #}}}
+
+#{{{ Build libstdc++
+tar -xf gcc-*.tar.xz -C /tmp/ \
+  && mv /tmp/gcc-* /tmp/gcc \
+  && pushd /tmp/gcc \
+  && mkdir -v build \
+  && cd build \
+  && ../libstdc++-v3/configure        \
+     --host=$LFS_TGT                 \
+     --prefix=/tools                 \
+     --disable-multilib              \
+     --disable-nls                   \
+     --disable-libstdcxx-threads     \
+     --disable-libstdcxx-pch         \
+     --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/9.2.0 \
+  && make \
+  && make install \
+  && popd \
+  && rm -rf /tmp/gcc
+#}}}

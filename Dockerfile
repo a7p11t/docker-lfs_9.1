@@ -26,7 +26,9 @@ RUN rm sh && ln -s bash sh
 RUN mkdir -pv     $LFS/sources && \
     chmod -v a+wt $LFS/sources
 
-COPY [ "version-check.sh", "$LFS/sources" ]
+COPY [ "version-check.sh", \
+       "run.sh",           \
+       "$LFS/sources/" ]
 
 WORKDIR $LFS/sources
 
@@ -40,3 +42,5 @@ RUN mkdir -pv $LFS/tools && \
     ln    -sv $LFS/tools /
 
 WORKDIR $LFS/sources
+
+CMD [ "./run.sh" ]
